@@ -1,0 +1,12 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="container mt-5">
+    <p>Are you sure you want to delete the book <b>{{object}}</b> ?</p>
+    <form class="" action="" method="post">
+      {% csrf_token %}
+      <button type="submit" class="btn btn-danger" name="button">Delete</button>
+      <a href="{% url 'webapp:books_listing' %}" class="btn btn-primary">No</a>
+    </form>
+  </div>
+{% endblock %}

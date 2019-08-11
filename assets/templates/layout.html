@@ -1,0 +1,25 @@
+{% extends "base.html" %}
+{% block header %}
+<nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="{% url 'webapp:books_listing' %}">Book Readers App</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
+  {% if request.user.is_authenticated %}
+  <div class="collapse navbar-collapse" id="navbarNavDropdown">
+    <ul class="navbar-nav">
+      <li class="nav-item active">
+        <a class="nav-link" href="{% url 'webapp:book-add' %}">Add a book <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'webapp:books_listing' %}">View all books</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="{% url 'apiapp:api-reading-list' %}">Api</a>
+      </li>
+    </ul>
+  </div>
+  <a class="navbar btn btn-primary" href="{% url 'webapp:logout' %}">Logout</a>
+  {% endif %}
+</nav>
+{% endblock %}

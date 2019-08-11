@@ -1,0 +1,13 @@
+{% extends "layout.html" %}
+
+{% block content %}
+  <div class="container-fluid mt-5">
+    <h1>Logged out</h1>
+    <p>Thanks for spending some quality time on the Web site today.</p>
+  </div>
+  <script type="text/javascript">
+  setTimeout(function(){
+      window.location.href = "/login/"
+    }, 3000);
+  </script>
+{% endblock %}

@@ -1,0 +1,68 @@
+{% extends "layout.html" %}
+
+{% block page_specific_script %}
+  <script type="text/javascript">
+  $(document).ready(function() {
+    $('#readingList').DataTable();
+  });
+  $('form select').on('change', function(){
+    var value = $(this).val();
+    if (value!='--------'){
+      $(this).closest('form').submit();
+    }
+  });
+  </script>
+{% endblock %}
+
+{% block content %}
+<div class="container-fluid">
+  <h1>Reading List</h1>
+  <form  method="get">
+    <div class="form-group col-md-1">
+       <label for="filterByStatus">Filter By Status</label>
+       <select name='filterby' class="form-control" id="filterByStatus" >
+         <option value="--------">----------</option>
+         <option value="All" {% if request.GET.filterby == 'All' %} selected {% endif %}>All</option>
+         <option value="To Read" {% if request.GET.filterby == 'To Read' %} selected {% endif %}>To Read</option>
+         <option value="Reading" {% if request.GET.filterby == 'Reading' %} selected {% endif %}>Reading</option>
+         <option value="Completed" {% if request.GET.filterby == 'Completed' %} selected {% endif %}>Completed</option>
+       </select>
+     </div>
+  </form>
+  <table id="readingList" class="table table-striped table-bordered" style="width:100%">
+    <thead>
+      <tr>
+        <th scope="col">#</th>
+        <th scope="col">Book Name</th>
+        <th scope="col">Author Name</th>
+        <th scope="col">Publication</th>
+        <th scope="col">Publication Year</th>
+        <th scope="col">Summary</th>
+        <th scope="col">Status</th>
+        <th scope="col">Created</th>
+        <th scope="col">Updated</th>
+        <th scope="col">Action</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for book_object in books_list %}
+      <tr>
+        <th scope="row">{{forloop.counter}}</th>
+        <td>{{book_object.book_name}}</td>
+        <td>{{book_object.author_name}}</td>
+        <td>{{book_object.publication}}</td>
+        <td>{{book_object.year_of_publication}}</td>
+        <td>{{book_object.summary}}</td>
+        <td>{{book_object.status}}</td>
+        <td>{{book_object.created_on}}</td>
+        <td>{{book_object.updated_on}}</td>
+        <td>
+          <a href="{% url 'webapp:book-edit' pk=book_object.id %}">Edit</a>
+          <a href="{% url 'webapp:book-delete' pk=book_object.id %}">Delete</a>
+        </td>
+      </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+</div>
+{% endblock %}
